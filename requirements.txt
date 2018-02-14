@@ -1,0 +1,11 @@
+jenkins==1.0.2
+requests==2.18.4
+flask
+SQLAlchemy
+Flask-DebugToolbar
+MySQL-python
+testrail
+jenkinsapi
+gunicorn==19.3.0
+Fabric==1.13.1
+gevent==1.2.0

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<apis>
+    <api name="opensite_launch">
+        <param>
+            <paramname>consumer_key</paramname>
+            <defaultvalue>1519883017</defaultvalue>
+        </param>
+        <param>
+            <paramname>consumer_secret</paramname>
+            <defaultvalue>c4843e096cd9e4fb4eda17909baad0a5690af593</defaultvalue>
+        </param>
+    </api>
+    <api name="opensite_launch_orderlist">
+        <param>
+            <paramname>consumer_key</paramname>
+            <defaultvalue>1519883017</defaultvalue>
+        </param>
+        <param>
+            <paramname>consumer_secret</paramname>
+            <defaultvalue>c4843e096cd9e4fb4eda17909baad0a5690af593</defaultvalue>
+        </param>
+    </api>
+
+    <api name="restaurant_menu_get">
+        <param>
+            <paramname>consumer_key</paramname>
+            <defaultvalue>1519883017</defaultvalue>
+        </param>
+        <param>
+            <paramname>consumer_secret</paramname>
+            <defaultvalue>c4843e096cd9e4fb4eda17909baad0a5690af593</defaultvalue>
+        </param>
+        <param>
+            <paramname>restaurant_id</paramname>
+            <defaultvalue>156404624</defaultvalue>
+        </param>
+    </api>
+    <api name="restaurant_get">
+        <param>
+            <paramname>consumer_key</paramname>
+            <defaultvalue>1519883017</defaultvalue>
+        </param>
+        <param>
+            <paramname>consumer_secret</paramname>
+            <defaultvalue>c4843e096cd9e4fb4eda17909baad0a5690af593</defaultvalue>
+        </param>
+        <param>
+            <paramname>restaurant_id</paramname>
+            <defaultvalue>156404624</defaultvalue>
+        </param>
+    </api>
+</apis>

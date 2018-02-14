@@ -1,0 +1,75 @@
+{% extends "layout/base.html" %}
+{% block base %}
+    <nav class="navbar-default navbar-static-side" role="navigation">
+        <div class="sidebar-collapse">
+            <ul class="nav metismenu" id="side-menu">
+                <li class="nav-header">
+                    <div class="dropdown profile-element"> <span>
+                            <img alt="image" class="img-circle" src="{{ 'http://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83eqQ4Qib7yhHB8ibvGSVGXR25A6EHaYsXH1ej10LtImAK9Aq7zRlQ0qzDtl8BNCzUC7kg6oyadvnXYeQ/0' }}" width="48"/>
+                             </span>
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span class="clear"> <span class="block m-t-xs"> <strong
+                                    class="font-bold">{{ "way" }}</strong>
+                             </span> <span class="text-muted text-xs block">{{ "管理员" }} <b
+                                    class="caret"></b></span> </span> </a>
+                        <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                            <li><a href="{{ '' }}">退出</a></li>
+                        </ul>
+                    </div>
+                    <div class="logo-element">
+                        dtest
+                    </div>
+                </li>
+                {% for title, icon, menus, eps in settings.menus %}
+                    <li class="{{ 'active' if request.endpoint in eps }}">
+                        {% if menus | is_list %}
+                            <a href="#"><i class="fa {{ icon }}"></i> <span
+                                    class="nav-label">{{ title }}</span> <span
+                                    class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level collapse">
+                                {% for title2, link, eps2 in menus %}
+                                    <li class="{{ 'active' if request.endpoint in eps2 }}"><a
+                                            href="{{ link | get_url }}">{{ title2 }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <a href="{{ menus | get_url }}"><i class="fa {{ icon }}"></i> <span
+                                    class="nav-label">{{ title }}</span></a>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </nav>
+
+    <div id="page-wrapper" class="gray-bg">
+        {% if not g.hide_menu %}
+            <div class="row border-bottom">
+                <nav class="navbar navbar-static-top" style="margin-bottom: 0">
+                    <div class="navbar-header">
+                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i
+                                class="fa fa-bars"></i>
+                        </a>
+                    </div>
+
+                    <ul class="nav navbar-top-links navbar-right">
+                        <li>
+                            <span class="m-r-sm text-muted welcome-message">欢迎登录测试平台</span>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-sign-out"></i> 退出
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        {% endif %}
+
+        {% block page_heading %}{% endblock %}
+
+        <div class="wrapper wrapper-content fadeInRight full-height-scroll">
+            {% block main %}{% endblock %}
+        </div>
+    </div>
+{% endblock %}

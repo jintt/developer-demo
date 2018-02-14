@@ -1,0 +1,197 @@
+html {
+  min-height: 100%;
+  position: relative;
+}
+body {
+  margin: 0;
+  background-color: #e4e6e9;
+  min-height: 100%;
+  padding-bottom: 0;
+  font-family: 'Open Sans';
+  font-size: 13px;
+  color: #393939;
+  line-height: 1.5;
+  background: #4fb5b9;
+}
+.navbar {
+  margin: 0;
+  padding-left: 0;
+  padding-right: 0;
+  border-width: 0;
+  border-radius: 0;
+  bottom: 0;
+  top: 0;left: 0;
+  right:0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  min-height: 45px;
+  background: #438eb9;
+}
+
+.navbar-container{
+  padding-left: 10px;
+  margin-left: 10px;
+  min-height: 45px;
+}
+.navbar-brand {
+  color: #ffffff;
+  font-size: 24px;
+  text-shadow: none;
+  line-height: 45px;
+}
+
+.main-container:before {
+  display: block;
+  content: "";
+  position: absolute;
+  z-index: -2;
+  width: 100%;
+  max-width: inherit;
+  bottom: 0;
+  top: 0;left: 0;
+  right:0;
+  background-color: #FFF;
+}
+.sidebar::before {
+    bottom: 0;
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right:0;
+    width: inherit;
+    z-index: -1;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #cccccc;
+    background-color: #87aab9;
+}
+
+.sidebar {
+    float: left;
+    padding-left: 0;
+    padding-right: 0;
+    position: static;
+    width: 189px;
+
+}
+.no-skin .sidebar {
+    background-color: #f2f2f2;
+    border-color: #cccccc;
+    border-style: solid;
+    border-width: 0 1px 0 0;
+}
+* {
+    box-sizing: border-box;
+}
+.main-content {
+  margin-top: 0px;
+  min-height: 100%;
+  padding: 0;
+  margin-left: 490px;
+  padding: 10px;
+}
+
+.main-content-inner {
+  float: left;
+  width: 100%;
+}
+.nav-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.nav > li > a {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    background-color: #f8f8f8;
+    color: #585858;
+}
+.nav-list > li {
+    display: block;
+    position: relative;
+    float: none;
+    padding: 0;
+    border-style: solid;
+    border-color: #cccccc;
+    border-width: 0 0 1px ;
+}
+
+#param {
+    float: left;
+    padding-left: 0;
+    padding-right: 0;
+    position: static;
+    width: 300px;
+    padding: 10px 10px 0;
+
+}
+.param-form{
+    padding: 0;
+
+    #min-height: 200px;
+    border-style: solid;
+    border-color: #4fb5b9;
+    border-width: 1px ;
+}
+.param-json{
+    min-height: 200px;
+}
+.json{
+    width: 280px;
+    min-height: 100%;
+    bottom:0;
+}
+.pull-right {
+    float: right;
+}
+.align-center {
+    text-align: center;
+    margin: 10px;
+    font-size: large;
+}
+.align-left {
+    margin: 5px;
+    padding-left: 5px;
+}
+.large{
+    font-size: large;
+}
+.small{
+    font-size: small;
+}
+textarea {
+    resize: none;
+    width: 700px;
+    height: 500px;
+    max-width: 1000px;
+    max-height: 500px;
+    padding-left: 5px;
+}
+.content {
+    position: fixed;
+    left: 10%;
+}
+
+.string {
+    color: green;
+}
+
+.number {
+    color: darkorange;
+}
+
+.boolean {
+    color: blue;
+}
+
+.null {
+    color: magenta;
+}
+
+.key {
+    color: red;
+}

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="format-detection" content="telephone=no">
+    <title>{% block title %}{{ settings.SITE_NAME }}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for("static", filename="js/plugins/bootstrap/css/bootstrap.min.css") }}">
+    <link rel="stylesheet" href="{{ url_for("static", filename="css/plugins/toastr/toastr.min.css") }}">
+    <link rel="stylesheet" href="{{ url_for("static", filename="css/plugins/sweetalert/sweetalert.css") }}">
+    <link rel="stylesheet" href="{{ url_for("static", filename="css/plugins/select2/select2.min.css") }}">
+    <link rel="stylesheet" href="{{ url_for("static", filename="css/plugins/timepicker/jquery.timepicker.css") }}">
+    <link rel="stylesheet" href="{{ url_for("static", filename="css/plugins/datepicker/datepicker3.css") }}">
+    <link rel="stylesheet" href="{{ url_for("static", filename="css/plugins/jsTree/style.min.css") }}">
+    <link rel="stylesheet" href="{{ url_for("static", filename="css/plugins/footable/footable.core.css") }}">
+    <link rel="stylesheet" href="{{ url_for("static", filename="css/plugins/chosen/chosen.css") }}">
+    <link href="{{ url_for("static", filename="css/animate.css") }}" rel="stylesheet">
+    <link href="{{ url_for("static", filename="css/style.css") }}" rel="stylesheet">
+    <link href="{{ url_for("static", filename="css/custom.css") }}" rel="stylesheet">
+    <link href="{{ url_for("static", filename="font-awesome/css/font-awesome.css") }}" rel="stylesheet">
+{#    <script type="text/javascript" src="{{ url_for('static', filename='js/plugins/jsTree/jstree.min.js') }}"></script>#}
+
+    <script type="text/javascript" src="{{ url_for('static', filename='js/require.js') }}"></script>
+    {% block header %}{% endblock %}
+</head>
+<body id="page-{{ request.endpoint | replace('.', '-') }}">
+{% block base %}
+{% endblock %}
+<script type="text/javascript">
+    require.config({
+        baseUrl: "{{ url_for('static', filename="js") }}",
+        paths: {
+            "init": 'init',
+            "jquery": "plugins/jquery/2.2.4/jquery.min",
+            "jweixin": "https://res.wx.qq.com/open/js/jweixin-1.0.0",
+            "underscore": "plugins/underscore.js/1.8.3/underscore-min",
+            "bootstrap": "plugins/bootstrap/js/bootstrap.min",
+            "select2": "plugins/select2/select2.min",
+            "select2Language": "plugins/select2/i18n",
+            "sweetalert": "plugins/sweetalert/sweetalert.min",
+            "toastr": "plugins/toastr/toastr.min",
+            "validate": "plugins/validate/jquery.validate.min",
+            "steps": "plugins/steps/jquery.steps.min",
+            sortable: "plugins/sortable/Sortable.min",
+            timepicker: "plugins/timepicker/jquery.timepicker",
+            metisMenu: "plugins/metisMenu/jquery.metisMenu",
+            slimscroll: "plugins/slimscroll/jquery.slimscroll.min",
+            quill: "plugins/quill/quill",
+            summernote: "https://cdn.bootcss.com/summernote/0.8.2/summernote.min",
+            summernoteLang: "https://cdn.bootcss.com/summernote/0.8.2/lang/summernote-zh-CN.min",
+            summernoteImgAttr: "plugins/summernote/image-attributes",
+            areaSelector: "plugins/areaSelector",
+            datepicker: "plugins/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker",
+            datepickerLanguage: "https://cdn.bootcss.com/bootstrap-datepicker/1.6.4/locales/bootstrap-datepicker.zh-CN.min",
+            inputmask: "https://cdn.bootcss.com/jquery.inputmask/3.3.3/jquery.inputmask.bundle.min",
+            jsdiff: 'https://cdn.bootcss.com/jsdiff/3.0.0/diff.min',
+            tagsinput: 'https://cdn.bootcss.com/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput',
+            moment: 'plugins/moment.js/2.18.1/moment.min',
+            echarts: 'plugins/echarts/echarts.common.min',
+            jstree: 'plugins/jsTree/jstree.min',
+            footable: 'plugins/footable/footable.all.min',
+            inspinia: 'plugins/pace/inspinia',
+            pace: 'plugins/pace/pace.min',
+            peity: 'plugins/peity/jquery.peity.min'
+        },
+        shim: {
+            "bootstrap": {
+                deps: ["jquery"]
+            },
+            "validate": {
+                deps: ['jquery']
+            },
+            "select2": {
+                deps: ['jquery']
+            },
+            "steps": {
+                deps: ['jquery']
+            },
+            "metisMenu": {
+                deps: ['jquery']
+            },
+            "slimscroll": {
+                deps: ['jquery']
+            },
+            "sweetalert": {
+                deps: ['jquery']
+            },
+            datepicker: {
+                deps: ['bootstrap']
+            },
+            tagsinput: {
+                deps: ['bootstrap']
+            },
+            datepickerLanguage: {
+                deps: ['datepicker']
+            },
+            inputmask: {
+                deps: ['jquery']
+            },
+            areaSelector: {
+                deps: ['jquery']
+            },
+            "init": {
+                deps: ['metisMenu', 'slimscroll']
+            },
+            summernoteLang: {
+                deps: ['summernote']
+            },
+            summernoteImgAttr: {
+                deps: ['summernote']
+            },
+            jstree: {
+                deps: ['jquery']
+            },
+            footable: {
+                deps: ['jquery']
+            }
+        },
+        waitSeconds: 30,
+        urlArgs: "v=0.5"
+    });
+    require(['jquery', 'toastr', 'bootstrap', 'init'], function ($, toastr) {
+        window.post_form = function (url, data) {
+            var form = $('<form method="post"></form>');
+            form.attr('action', url);
+            if (data) {
+                $.each(data, function (k, v) {
+                    form.append('<input name="' + k + '" value="' + v + '" type="hidden">')
+                })
+            }
+            form.appendTo($('body'));
+            form.submit();
+        };
+        $('a.post').click(function () {
+            post_form($(this).attr('href'));
+            return false;
+        });
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "progressBar": true,
+            "preventDuplicates": false,
+            "positionClass": "toast-top-center",
+            "onclick": null,
+            "showDuration": "400",
+            "hideDuration": "1000",
+            "timeOut": "7000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+        {% if get_flashed_messages(True) != [] %}
+            {% for item in get_flashed_messages(True) %}
+                setTimeout(function () {
+                    toastr["{{ item[0] }}"]("", "{{ item[1] }}");
+                }, {{ 500 * loop.index0 }});
+            {% endfor %}
+        {% endif %}
+        {% if not g.is_mobile %}
+            if ($('#main-menu>li.active>ul').size() > 0) {
+                $('.submenu').removeClass('hide');
+                $('.subtitle').text($('#main-menu>li.active>a').text());
+                $('.subnav').html($('#main-menu>li.active>ul').html());
+            }
+        {% endif %}
+    });
+</script>
+{% block javascript %}{% endblock %}
+</body>
+</html>

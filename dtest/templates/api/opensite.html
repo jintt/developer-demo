@@ -1,0 +1,197 @@
+{% extends "layout/full-width.html" %}
+
+{% block main %}
+    <div class="ibox-content m-b-sm border-bottom">
+
+    </div>
+
+    <div class="ibox-content m-b-sm border-bottom">
+        <div class="row">
+            <div class="col-lg-5">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>接口列表 <small>find and click</small></h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div id="jstree1">
+                            <ul>
+                                <li class="jstree-open">opensite
+                                    <ul>
+                                        <li>唤起
+                                            <ul>
+                                                <li data-jstree='{"type":"css"}' onclick="refreshparams('opensite_launch');">唤起首页</li>
+                                                <li data-jstree='{"type":"css"}'>唤起订单详情页</li>
+                                            </ul>
+                                        </li>
+
+                                    </ul>
+                                    <ul>
+                                        <li>查询
+                                            <ul>
+                                                <li data-jstree='{"type":"css"}'>查询餐厅</li>
+                                                <li data-jstree='{"type":"css"}'>查询订单</li>
+                                            </ul>
+                                        </li>
+
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-7">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>接口参数</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <form id="param_form" class="form-horizontal">
+{#                                <p>Sign in today for more expirience.</p>#}
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label">consumer_key</label>
+
+                                    <div class="col-lg-9"><input type="text" placeholder="consumer_key" class="form-control"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label">restaurant_id</label>
+
+                                    <div class="col-lg-9"><input type="text" placeholder="restaurant_id" class="form-control"></div>
+                                </div>
+
+
+                            </form>
+                            <div class="form-group">
+                                    <div class="col-lg-offset-3 col-lg-9">
+                                        <button id="b" class="btn btn-sm btn-white">提交</button>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        </div>
+
+      <div class="row" >
+
+
+          <div class="panel panel-default" style="margin: 0 10px 10px 10px; height:75%;">
+              <div class="panel-heading" style="font-size: 12px;padding: 5px 15px 5px 15px;">接口返回：</div>
+              <div class="panel-body" style="height:95%">
+
+                <textarea id="res" style="height:100%;width:100%">
+
+                </textarea>
+              </div>
+          </div>
+    </div>
+
+{% endblock %}
+
+{% block javascript %}
+    <style>
+        .jstree-open > .jstree-anchor > .fa-folder:before {
+            content: "\f07c";
+        }
+
+        .jstree-default .jstree-icon.none {
+            width: 0;
+        }
+    </style>
+
+<script>
+    require(['jquery', 'jstree'], function ($, jstree) {
+         $('#jstree1').jstree({
+            'core' : {
+                'check_callback' : true
+            },
+            'plugins' : [ 'types', 'dnd' ],
+            'types' : {
+                'default' : {
+                    'icon' : 'fa fa-folder'
+                },
+                'html' : {
+                    'icon' : 'fa fa-file-code-o'
+                },
+                'svg' : {
+                    'icon' : 'fa fa-file-picture-o'
+                },
+                'css' : {
+                    'icon' : 'fa fa-file-code-o'
+                },
+                'img' : {
+                    'icon' : ''
+                },
+                'js' : {
+                    'icon' : 'fa fa-file-text-o'
+                }
+
+            }
+        }
+        );
+
+        refreshparams = function(a) {
+            act = "/api/" + a
+            $.post("/api/open",
+                {
+                    "apiname": a
+                },
+                function(res) {
+                    obj = eval(res)
+
+                    var html = ""
+                    for (var i = 0; i < obj.length; i++) {
+
+                        html = html + '<div class="form-group"><label class="col-lg-3 control-label">' + obj[i].paramname + '</label>'
+                        html = html + '<div class="col-lg-9"><input type="text" name="' + obj[i].paramname + '" placeholder=' + obj[i].defaultvalue + ' class="form-control"> </div> </div>'
+
+                    }
+                    console.log(obj)
+                    $("#param_form").html(html)
+
+                }
+            )
+        };
+
+
+        $('#b').click(function(){
+         var data = {};
+            var p_div;
+
+            p_div = document.getElementById("param_form").getElementsByTagName("input")
+
+            for (var i = 0; i < p_div.length; i++) {
+                if(p_div[i].value == "")
+                    data[p_div[i].name] = p_div[i].placeholder
+                else
+                    data[p_div[i].name] = p_div[i].value
+            }
+
+            $.ajax({
+                type : "POST",
+                url : act,
+                data : data,
+                success:function(res) {
+                    $("#res").val(res)
+                    console.log(res)
+                }
+            });
+        });
+
+    });
+
+</script>
+
+{% endblock %}
